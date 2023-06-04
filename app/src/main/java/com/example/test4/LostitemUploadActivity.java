@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -59,20 +60,31 @@ public class LostitemUploadActivity extends AppCompatActivity {
 
         Button finaluploadButton = findViewById(R.id.finaluploadButton);
         finaluploadButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String uploadID = userID;
                 String uploadItem = ((EditText) findViewById(R.id.LostItemNameText)).getText().toString();
                 String uploadTime = getCurrentTime();
 
-                // 이미지를 Bitmap으로 변환
-                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                try {
+                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
 
-                // 이미지를 Base64 문자열로 인코딩
-                String imageString = encodeImageToString(bitmap);
+                    // Resize bitmap
+                    Bitmap resizedBitmap = resizeBitmap(bitmap, 1000); // Adjust this value as needed
 
-                // 데이터베이스에 업로드 요청
-                uploadData(uploadID, uploadItem, uploadTime, imageString);
+                    // 이미지를 Base64 문자열로 인코딩
+                    String imageString = encodeImageToString(resizedBitmap);
+
+                    // 데이터베이스에 업로드 요청
+                    uploadData(uploadID, uploadItem, uploadTime, imageString);
+                } catch (ClassCastException e) {
+                    // 이미지가 없거나 이미지 로드에 실패한 경우에 대한 처리
+                    Toast.makeText(getApplicationContext(), "Please select an image.", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    // 에러가 발생한 경우에 대한 처리
+                    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
+                }
 
                 finish();
             }
@@ -137,4 +149,27 @@ public class LostitemUploadActivity extends AppCompatActivity {
             imageView.setImageURI(data.getData());
         }
     }
+
+    private Bitmap resizeBitmap(Bitmap bitmap, int maxResolution) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float rate = 0.0f;
+
+        if (width > height) {
+            if (maxResolution < width) {
+                rate = maxResolution / (float) width;
+                height = (int) (height * rate);
+                width = maxResolution;
+            }
+        } else {
+            if (maxResolution < height) {
+                rate = maxResolution / (float) height;
+                width = (int) (width * rate);
+                height = maxResolution;
+            }
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, width, height, true);
+    }
+
 }
