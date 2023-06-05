@@ -68,6 +68,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/first_turn"
                 android:layout_marginTop="15dp">
 
                 <TextView
@@ -75,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="1회차"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,6 +88,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/first_reserve"
                     android:textSize="20dp"
                     android:layout_alignParentRight="true"
                     android:text="선택"/>
@@ -102,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:text="2회차"/>
                 <TextView
@@ -113,6 +117,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/second_reserve"
                     android:textSize="20dp"
                     android:layout_alignParentRight="true"
                     android:text="선택"/>

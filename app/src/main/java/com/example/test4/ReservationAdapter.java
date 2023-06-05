@@ -1,10 +1,14 @@
 package com.example.test4;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -12,8 +16,7 @@ public class ReservationAdapter extends BaseAdapter{
 
     private Context context;
     private List<ReservationItem> ReservationList;
-
-    public ReservationAdapter(Context context, List<ReservationItem> ReservationList){
+    public ReservationAdapter(Context context, List<ReservationItem> ReservationList,String userID,String date,String route,int turn){
         this.context = context;
         this.ReservationList = ReservationList;
     }
@@ -36,15 +39,10 @@ public class ReservationAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.reserve, null);
-        TextView timeText = v.findViewById(R.id.bus_time);
         TextView startText = v.findViewById(R.id.bus_start);
-
-        timeText.setText(ReservationList.get(i).getTime());
         startText.setText(ReservationList.get(i).getStart());
-
         v.setTag(ReservationList.get(i).getStart());
         return v;
-
     }
 
 

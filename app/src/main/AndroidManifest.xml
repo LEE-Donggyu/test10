@@ -52,7 +52,15 @@
             android:exported="false"/>
 
         <activity
-            android:name=".NextActivity"
+            android:name=".ReservecheckActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".pickplaceActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ReservecompleteActivity"
             android:exported="false"/>
 
         <activity
